@@ -1,0 +1,7 @@
+"0","N<-c(""santander 021"")"
+"0","N1<- gsub("" .*"","""",N) #Todo lo que esté después del espacio se reemplaza por un espacio vacío basado en el vector N"
+"0","N1"
+"1","[1]"
+"1"," ""santander"""
+"1","
+"

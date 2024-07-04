@@ -1,0 +1,178 @@
+---
+title: "MANIPULACIÓN STRING"
+author: "JAVIER_ROMÁN"
+date: "2023-10-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+library(tidyr)
+library(dplyr)
+library(stringi)
+```
+
+# CONTAR CARACTERES
+
+```{r}
+x<-"manipulación de caracteres"
+y<-c("Arsenal", "Chelsea", "Tottenham", 
+     "Manchester City", "Manchester United", "Liverpool")
+```
+
+```{r}
+nchar(x)
+nchar(y)
+```
+
+# EXTRAER SUBCADENAS
+
+SUBSTR()
+substr("x", "star=", "stop=")
+
+```{r}
+substr(x,start = 3,stop = 6)
+```
+
+```{r}
+substr(y,start = 1,stop = 3)
+```
+
+SUBSTRING()
+substring("x", "first=", "last=10^6")
+
+```{r}
+substring(x, first = 10)
+```
+```{r}
+substring(y,10)
+```
+```{r}
+substring(y,2)
+```
+Si deseo extraer del vector x la primera letra luego la segunda letra y por último la tercera letra. la sintaxis sería la siguiente:
+
+```{r}
+substring(x, 1:3, 1:3) 
+```
+```{r}
+substring(x, 1:3, 1:4)
+```
+
+
+```{r}
+substring(x, 1:3)
+```
+
+```{r}
+z<-substring(y, 1, 3)
+```
+
+```{r}
+substring(y, 1:3)
+```
+```{r}
+substring(y, 1:3,2:4)
+```
+
+
+## Extraer Subcadena hasta encontrar un caracter específico
+
+Digamos que tenemos un vector N con el siguiente contenido "santander 021". Quiero extraer el texto hasta encontrar un espacio en blanco.
+
+```{r}
+N<-c("santander 021")
+N1<- gsub(" .*","",N) #Todo lo que esté después del espacio se reemplaza por un espacio vacío basado en el vector N
+N1
+```
+
+# CASO I: QUITAR ESPACIOS EN BLANCO
+
+```{r}
+b1<-read_xlsx("gobern.xlsx")
+```
+
+```{r}
+b1$cedula<-as.factor(b1$cedula)
+levels(b1$cedula)
+```
+
+
+## Espacios al Inicio y Final Simultáneamente
+
+trimws(df$mi_columna)
+
+```{r}
+b2<-trimws(b1$cedula)
+summary(b2)
+```
+
+
+## Espacios al Inicio
+
+trimws(df$mi_columna, which = "left")
+
+## Espacios al Final
+
+trimws(df$mi_columna, which = "right")
+
+## Espacios En Medio de 2 o más String
+
+```{r}
+b1$cedula
+b5<-gsub(" ","",b1$cedula)
+b5
+```
+
+
+
+# CASO II: QUITAR UN CARACTER
+
+Quito las comas de las cédulas
+```{r}
+b3<-gsub(",","",b1$cedula)
+b3
+```
+
+Quito las comas y las reemplazo por un punto
+
+```{r}
+b4<-gsub(",",".",b1$cedula)
+b4
+```
+
+
+# CASO III: CAMBIAR UN CARACTER UBICACIÓN ESPECÍFICA
+
+```{r}
+substr(x, 1, 1)<-"M" #Del vector x empezando en la posición 1 hasta la posición 1 reemplace el caracter actual (m) por el caracter M
+x
+```
+
+# CASO IV: PASAR A MAYÚSCULAS
+
+```{r}
+(MINUSCULAS <- c("SanTandeR"))
+(MAYUSCULAS <-toupper(MINUSCULAS))
+```
+# CASO v: QUITAR TILDES
+
+```{r}
+(contildes<-c("concepción"))
+(sintildes<-stri_trans_general(contildes,"Latin-ASCII"))
+```
+
+
+
+
+
+
+
+
+
+
+
